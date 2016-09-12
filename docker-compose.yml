@@ -1,0 +1,12 @@
+version: '2'
+services:
+  keystone:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    image: ryannhg/angular
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./index.js:/usr/src/app/index.js
+      - ./app:/usr/src/app/app
