@@ -1,0 +1,41 @@
+{
+  "name": "docker-angular",
+  "version": "1.0.0",
+  "description": "An isolated AngularJS frontend container that offers an intuitive folder structure and a guided developer workflow.",
+  "main": "index.js",
+  "scripts": {
+    "start": "gulp && node index.js",
+    "test": "gulp test",
+    "dev": "gulp dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RyanNHG/docker-angular.git"
+  },
+  "keywords": [
+    "angular",
+    "docker",
+    "frontend"
+  ],
+  "author": "Ryan Haskell-Glatz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RyanNHG/docker-angular/issues"
+  },
+  "homepage": "https://github.com/RyanNHG/docker-angular#readme",
+  "devDependencies": {
+    "angular-route": "^1.5.8",
+    "browserify": "^13.1.0",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-nodemon": "^2.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.3.2",
+    "gulp-watch": "^4.3.9",
+    "vinyl-source-stream": "^1.1.0"
+  },
+  "dependencies": {
+    "angular": "^1.5.8",
+    "express": "^4.14.0"
+  }
+}
