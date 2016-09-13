@@ -8,7 +8,7 @@ describe('welcomePage', function() {
         angular.mock.module(require('.'));
 
         // Initialize component
-        inject(($componentController) => {
+        inject(function($componentController) {
             ctrl = $componentController('welcomePage', {});
         });
 
