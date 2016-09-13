@@ -5,12 +5,15 @@ var browserify = require('browserify'),
     nodemon = require('gulp-nodemon'),
     source = require('vinyl-source-stream'),
     sass = require('gulp-sass'),
-    clean = require('gulp-clean');
+    clean = require('gulp-clean'),
+    Server = require('karma').Server,
+    protractor = require('gulp-protractor').protractor;
 
 var paths = {
     tpl: './app/**/*.html',
+    sass: './app/**/*.scss',
     js: './app/**/*.js',
-    sass: './app/**/*.scss'
+    specs: './app/**/spec.js'
 };
 
 gulp.task('bundle-js', function() {
@@ -42,6 +45,15 @@ gulp.task('bundle-css', function () {
     .pipe(gulp.dest('./dist'));
 });
 
+gulp.task('test', function (done) {
+  new Server({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, done).start();
+});
+
+gulp.task('build', ['bundle-js', 'bundle-css', 'copy-html']);
+
 gulp.task('watch', ['build'], function() {
 
     watch(paths.tpl, function(){ 
@@ -52,6 +64,9 @@ gulp.task('watch', ['build'], function() {
     });
     watch(paths.js, function(){ 
         gulp.start('bundle-js'); 
+    });
+    watch(paths.specs, function(){
+        gulp.start('test');
     });
 
     nodemon({
@@ -69,6 +84,19 @@ gulp.task('clean', function () {
 		.pipe(clean({force: true}));
 });
 
-gulp.task('build', ['bundle-js', 'bundle-css', 'copy-html']);
+gulp.task('test-watch', function (done) {
+  new Server({
+    configFile: __dirname + '/karma.conf.js'
+  }, done).start();
+});
+
+gulp.task('e2e', function(){
+    gulp.src(["./e2e-tests/**/*.js"])
+        .pipe(protractor({
+            configFile: "./protractor.conf.js",
+            args: ['--baseUrl', 'http://127.0.0.1:8000']
+        }))
+        .on('error', function(e) { throw e })
+});
 
 gulp.task('default', ['build']);

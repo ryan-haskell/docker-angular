@@ -1,8 +1,23 @@
-describe('ryan', function() {
+describe('welcomePage', function() {
 
-  it('is too tired to set up a docker image to handle unit tests',function(){
-    var ryan = 'failure';
-    expect(ryan).toEqual('failure');
-  });
+    var ctrl;
+
+    beforeEach(function(){
+
+        // Load module
+        angular.mock.module(require('.'));
+
+        // Initialize component
+        inject(($componentController) => {
+            ctrl = $componentController('welcomePage', {});
+        });
+
+    });
+
+    it('has working uppercase function',function(){
+        
+        expect(ctrl.toUppercase('Ryan')).toEqual('RYAN');
+
+    });
 
 });

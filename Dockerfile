@@ -7,6 +7,7 @@ WORKDIR /usr/src/app
 # Install app dependencies
 COPY package.json /usr/src/app/
 COPY gulpfile.js /usr/src/app/
+COPY karma.conf.js /usr/src/app/
 RUN npm install --quiet
 RUN npm install -g gulp
 
