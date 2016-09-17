@@ -6,7 +6,9 @@ module.exports = [function(){
 
     $ctrl.toUppercase = function(str){
 
-        return str.toUpperCase();
+        if(str)
+          return str.toUpperCase();
+        else return '';
 
     };
 

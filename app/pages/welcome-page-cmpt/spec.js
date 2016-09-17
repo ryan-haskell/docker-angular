@@ -1,4 +1,4 @@
-describe('welcomePage', function() {
+describe('welcomePageCmpt', function() {
 
     var ctrl;
 
@@ -9,13 +9,13 @@ describe('welcomePage', function() {
 
         // Initialize component
         inject(function($componentController) {
-            ctrl = $componentController('welcomePage', {});
+            ctrl = $componentController('welcomePageCmpt', {});
         });
 
     });
 
     it('has working uppercase function',function(){
-        
+
         expect(ctrl.toUppercase('Ryan')).toEqual('RYAN');
 
     });

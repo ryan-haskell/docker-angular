@@ -9,7 +9,7 @@ COPY package.json /usr/src/app/
 COPY gulpfile.js /usr/src/app/
 COPY karma.conf.js /usr/src/app/
 RUN npm install --quiet
-RUN npm install -g gulp
+RUN npm install -g gulp --quiet
 
 EXPOSE 8000
 CMD [ "npm", "run", "dev" ]

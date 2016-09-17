@@ -1,6 +1,6 @@
 var browserify = require('browserify'),
+    stringify = require('stringify'),
     gulp = require('gulp'),
-    watch = require('gulp-watch'),
     rename = require('gulp-rename'),
     nodemon = require('gulp-nodemon'),
     source = require('vinyl-source-stream'),
@@ -10,17 +10,23 @@ var browserify = require('browserify'),
     protractor = require('gulp-protractor').protractor;
 
 var paths = {
-    tpl: './app/**/*.html',
+    tpl: './app/index.html',
     sass: './app/**/*.scss',
     js: './app/**/*.js',
     specs: './app/**/spec.js'
 };
+
+var watchOptions =  {interval: 1000, usePolling: true};
 
 gulp.task('bundle-js', function() {
 
     browserify('./app/index.js',{
         paths: ['./node_modules', './app']
     })
+        .transform(stringify, {
+            appliesTo: { includeExtensions: ['.html'] },
+            minify: true
+        })
         .bundle()
         .on('error', function(err){
             console.log(err.toString());
@@ -34,7 +40,7 @@ gulp.task('bundle-js', function() {
 gulp.task('copy-html', function() {
 
     gulp.src(paths.tpl)
-        .pipe(gulp.dest('dist/templates'))
+        .pipe(gulp.dest('dist'))
 
 });
 
@@ -56,18 +62,10 @@ gulp.task('build', ['bundle-js', 'bundle-css', 'copy-html']);
 
 gulp.task('watch', ['build'], function() {
 
-    watch(paths.tpl, function(){ 
-        gulp.start('copy-html'); 
-    });
-    watch(paths.sass, function(){ 
-        gulp.start('bundle-css'); 
-    });
-    watch(paths.js, function(){ 
-        gulp.start('bundle-js'); 
-    });
-    watch(paths.specs, function(){
-        gulp.start('test');
-    });
+    gulp.watch( paths.tpl, watchOptions, ['copy-html'] );
+    gulp.watch( paths.sass, watchOptions, ['bundle-css'] );
+    gulp.watch( paths.js, watchOptions, ['bundle-js'] );
+    gulp.watch( paths.specs, watchOptions, ['test'] );
 
     nodemon({
         script: './index.js',

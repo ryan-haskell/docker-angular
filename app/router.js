@@ -3,7 +3,7 @@ function($routeProvider, $locationProvider){
 
     $routeProvider.
         when('/', {
-            template: '<welcome-page></welcome-page>'
+            template: '<welcome-page-cmpt></welcome-page-cmpt>'
         })
         .when('/oops', {
             template: '<error-page></error-page>'
@@ -13,4 +13,5 @@ function($routeProvider, $locationProvider){
         });
 
     $locationProvider.html5Mode(true);
+    
 }];

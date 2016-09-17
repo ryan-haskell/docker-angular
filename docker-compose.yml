@@ -1,7 +1,7 @@
 version: '2'
 services:
   angular:
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile
     image: ryannhg/angular
