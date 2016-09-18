@@ -4,3 +4,6 @@ node_modules
 
 # Generated Files
 dist
+
+# Git Submodules
+app
