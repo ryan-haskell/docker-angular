@@ -16,7 +16,12 @@ if (module === require.main) {
     var host = server.address().address;
     var port = server.address().port;
 
-    console.log('App listening at http://%s:%s', (host != '::' ? host : 'localhost'), port);
+    console.log('');
+    console.log('------------------------------------------------');
+    console.log('Angular Started:');
+    console.log('Ready on port %s', port);
+    console.log('------------------------------------------------');
+    console.log('');
   });
 }
 
