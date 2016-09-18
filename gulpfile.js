@@ -1,6 +1,7 @@
 var browserify = require('browserify'),
     stringify = require('stringify'),
     gulp = require('gulp'),
+    watch = require('gulp-watch'),
     rename = require('gulp-rename'),
     nodemon = require('gulp-nodemon'),
     source = require('vinyl-source-stream'),
@@ -62,10 +63,18 @@ gulp.task('build', ['bundle-js', 'bundle-css', 'copy-html']);
 
 gulp.task('watch', ['build'], function() {
 
-    gulp.watch( paths.tpl, watchOptions, ['copy-html'] );
-    gulp.watch( paths.sass, watchOptions, ['bundle-css'] );
-    gulp.watch( paths.js, watchOptions, ['bundle-js'] );
-    gulp.watch( paths.specs, watchOptions, ['test'] );
+    watch(paths.tpl, watchOptions, function(){ 
+        gulp.start('copy-html');
+    });
+    watch(paths.sass, watchOptions, function(){
+        gulp.start('bundle-css');
+    });
+    watch(paths.js, watchOptions, function(){
+        gulp.start('bundle-js');
+    });
+    watch(paths.specs, watchOptions, function(){
+        gulp.start('test');
+    });
 
     nodemon({
         script: './index.js',

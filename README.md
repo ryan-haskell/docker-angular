@@ -146,6 +146,58 @@ describe('exampleCmpt', function() {
 
 ---
 
+#### Example Service
+
+__`index.js`__
+
+```js
+angular.module(module.exports = 'ExampleSrvc', [])
+    .service( module.exports, require('./srvc') );
+```
+
+__`srvc.js`__
+```js
+module.exports = [function(){
+
+  var srvc = this;
+
+  srvc.data = {
+    person: {
+      name: 'Jack',
+      age: 21,
+    }
+  };
+
+}];
+```
+
+__`spec.js`__
+```js
+describe('ExampleSrvc', function() {
+
+    var ExampleSrvc;
+
+    beforeEach(function(){
+
+        angular.mock.module(require('.'));
+
+        inject(function(_ExampleSrvc_) {
+            ExampleSrvc = _ExampleSrvc_;
+        });
+
+    });
+
+    it('has right name',function(){
+
+        expect(ExampleSrvc.data.person.name).toEqual('Jack');
+
+    });
+
+});
+```
+
+---
+
 #### Unit Testing
 
 You may have noticed that the `spec.js` files require you to write tests for all _public_ interfaces. For _component_ controllers, this means that if a function is not private to the controller, it needs to be tested to define and validate the purpose of that function. The same rule applies to _services_.
