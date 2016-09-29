@@ -11,6 +11,7 @@ var browserify = require('browserify'),
     protractor = require('gulp-protractor').protractor;
 
 var paths = {
+    img: './app/images/**/*',
     html: './app/index.html',
     sass: './app/**/*.scss',
     js: './app/**/*.js',
@@ -45,6 +46,13 @@ gulp.task('copy-html', function() {
 
 });
 
+gulp.task('copy-images', function() {
+
+    gulp.src(paths.img)
+        .pipe(gulp.dest('dist/images'))
+
+});
+
 gulp.task('bundle-css', function () {
   gulp.src('./app/index.scss')
     .pipe(sass().on('error', sass.logError))
@@ -59,12 +67,15 @@ gulp.task('test', function (done) {
   }, done).start();
 });
 
-gulp.task('build', ['bundle-js', 'bundle-css', 'copy-html']);
+gulp.task('build', ['bundle-js', 'bundle-css', 'copy-html', 'copy-images']);
 
 gulp.task('watch', ['build'], function() {
 
     watch(paths.html, watchOptions, function(){ 
         gulp.start('copy-html');
+    });
+    watch(paths.img, watchOptions, function(){ 
+        gulp.start('copy-images');
     });
     watch(paths.sass, watchOptions, function(){
         gulp.start('bundle-css');
