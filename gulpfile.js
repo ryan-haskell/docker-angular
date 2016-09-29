@@ -11,7 +11,7 @@ var browserify = require('browserify'),
     protractor = require('gulp-protractor').protractor;
 
 var paths = {
-    tpl: './app/index.html',
+    html: './app/index.html',
     sass: './app/**/*.scss',
     js: './app/**/*.js',
     specs: './app/**/spec.js'
@@ -40,7 +40,7 @@ gulp.task('bundle-js', function() {
 
 gulp.task('copy-html', function() {
 
-    gulp.src(paths.tpl)
+    gulp.src(paths.html)
         .pipe(gulp.dest('dist'))
 
 });
@@ -63,7 +63,7 @@ gulp.task('build', ['bundle-js', 'bundle-css', 'copy-html']);
 
 gulp.task('watch', ['build'], function() {
 
-    watch(paths.tpl, watchOptions, function(){ 
+    watch(paths.html, watchOptions, function(){ 
         gulp.start('copy-html');
     });
     watch(paths.sass, watchOptions, function(){
