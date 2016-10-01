@@ -14,6 +14,7 @@ var paths = {
     img: './app/images/**/*',
     html: './app/index.html',
     sass: './app/**/*.scss',
+    tpl: './app/**/tpl.html',
     js: './app/**/*.js',
     specs: './app/**/spec.js'
 };
@@ -79,6 +80,9 @@ gulp.task('watch', ['build'], function() {
     });
     watch(paths.sass, watchOptions, function(){
         gulp.start('bundle-css');
+    });
+    watch(paths.tpl, watchOptions, function(){
+        gulp.start('bundle-js');
     });
     watch(paths.js, watchOptions, function(){
         gulp.start('bundle-js');
